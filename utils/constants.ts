@@ -1,5 +1,6 @@
 import { config } from "https://deno.land/x/dotenv/mod.ts";
 
-config({ safe: true, export: true });
+const env = config({ safe: true, export: true });
 
-export const PORT = +Deno.env.get("PORT")!;
+export const PORT = +env.PORT!;
+export const DB_URI = env.DB_URI!;
