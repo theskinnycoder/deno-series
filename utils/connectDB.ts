@@ -4,19 +4,18 @@ import {
   PostgresConnector,
   Relationships,
 } from "https://deno.land/x/denodb/mod.ts";
-import Post from "../models/Post.model.ts";
-import User from "../models/User.model.ts";
+import Post from "../blog/Post.model.ts";
+import User from "../auth/User.model.ts";
 
 const connectDB = async () => {
   try {
-    const db = new Database(new PostgresConnector({ uri: DB_URI })).link([
-      User,
-      Post,
-    ]);
+    const connection = new PostgresConnector({ uri: DB_URI });
+    const db = new Database(connection);
 
+    db.link([User, Post]);
     await db.sync({ drop: true });
-
     Relationships.belongsTo(Post, User);
+
     console.log(`Connected to the ${db.getDialect()} DataBase`);
     return db;
   } catch (error) {

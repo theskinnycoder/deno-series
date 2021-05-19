@@ -5,7 +5,7 @@
       "cmd": "app.ts",
       "desc": "Run the server",
       "tsconfig": "tsconfig.json",
-      "allow": ["net", "read", "env"],
+      "allow": ["net", "read", "write", "env", "plugin"],
       "unstable": true
     }
   }

@@ -1,29 +1,26 @@
 import { DataTypes, Model } from "https://deno.land/x/denodb/mod.ts";
-import Post from "./Post.model.ts";
+import User from "../auth/User.model.ts";
 
-export default class User extends Model {
-  static table = "users";
+export default class Post extends Model {
+  static table = "posts";
   static timestamps = true;
 
   static fields = {
     id: { primaryKey: true, autoIncrement: true },
-    handle: {
+    title: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
       length: 10,
     },
-    email: {
+    content: {
       type: DataTypes.STRING,
-      unique: true,
+      unique: false,
       allowNull: false,
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      length: 100,
     },
   };
-  static posts() {
-    return this.hasMany(Post);
+  static author() {
+    return this.hasOne(User);
   }
 }
